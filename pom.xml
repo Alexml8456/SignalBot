@@ -13,6 +13,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <jawampa.version>0.5.0</jawampa.version>
+        <jackson.version>1.9.13</jackson.version>
     </properties>
 
     <dependencies>
@@ -32,6 +33,12 @@
             <groupId>ws.wamp.jawampa</groupId>
             <artifactId>jawampa-netty</artifactId>
             <version>${jawampa.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
 
     </dependencies>
