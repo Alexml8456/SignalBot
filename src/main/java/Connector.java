@@ -4,7 +4,6 @@ import org.codehaus.jackson.util.DefaultPrettyPrinter;
 import rx.Subscription;
 import rx.functions.Action0;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 import ws.wamp.jawampa.PubSubData;
 import ws.wamp.jawampa.WampClient;
 import ws.wamp.jawampa.WampClientBuilder;
@@ -53,7 +52,7 @@ public class Connector {
                             .subscribe(new Action1<PubSubData>() {
                                 @Override
                                 public void call(PubSubData s) {
-                                    Employee employee = new Employee(GMTTime.getDateGMT(), s.arguments().get(0).toString().replace("\"", ""), s.arguments().get(1).toString().replace("\"", ""), s.arguments().get(2).toString().replace("\"", ""), s.arguments().get(3).toString().replace("\"", ""), s.arguments().get(4).toString().replace("\"", ""), s.arguments().get(5).toString().replace("\"", ""), s.arguments().get(6).toString().replace("\"", ""), s.arguments().get(7).asInt(), s.arguments().get(8).toString().replace("\"", ""), s.arguments().get(9).toString().replace("\"", ""));
+                                    Employee employee = new Employee(GMTTime.getDateGMT(), s.arguments());
                                     ObjectMapper mapper = new ObjectMapper();
                                     ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
                                     try {
@@ -78,15 +77,6 @@ public class Connector {
             }
         });
         client.open();
-
-        // Publish an event regularly
-        eventPublication = Schedulers.computation().createWorker().schedulePeriodically(new Action0() {
-            @Override
-            public void call() {
-                client.publish("ticker " + lastEventValue);
-                lastEventValue++;
-            }
-        }, eventInterval, eventInterval, TimeUnit.MILLISECONDS);
 
         waitUntilKeypressed();
         System.out.println("Stopping subscription");

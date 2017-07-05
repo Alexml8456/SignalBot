@@ -17,11 +17,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>ws.wamp.jawampa</groupId>
-            <artifactId>jawampa-parent</artifactId>
-            <version>${jawampa.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>ws.wamp.jawampa</groupId>
@@ -39,6 +34,12 @@
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
             <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.1.1</version>
         </dependency>
 
     </dependencies>
