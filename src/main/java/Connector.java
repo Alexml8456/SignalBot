@@ -52,11 +52,11 @@ public class Connector {
                             .subscribe(new Action1<PubSubData>() {
                                 @Override
                                 public void call(PubSubData s) {
-                                    Employee employee = new Employee(GMTTime.getDateGMT(), s.arguments());
+                                    PoloniexMapping poloniexMapping = new PoloniexMapping(GMTTime.getDateGMT(), s.arguments());
                                     ObjectMapper mapper = new ObjectMapper();
                                     ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
                                     try {
-                                        writer.writeValue(new FileWriter("/home/alexml/Downloads/employee.json", true), employee);
+                                        writer.writeValue(new FileWriter("/home/alexml/Downloads/sout.json", true), poloniexMapping);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }

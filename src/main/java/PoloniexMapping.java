@@ -2,7 +2,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import java.math.BigDecimal;
 
-class Employee {
+class PoloniexMapping {
     private long timeStamp;
     private String currencyPair;
     private BigDecimal last;
@@ -15,7 +15,7 @@ class Employee {
     private BigDecimal dayHigh;
     private BigDecimal dayLow;
 
-    Employee(Long timeStamp, ArrayNode test) {
+    PoloniexMapping(Long timeStamp, ArrayNode test) {
         this.timeStamp = timeStamp;
         this.currencyPair = test.get(0).asText();
         this.last = BigDecimal.valueOf(test.get(1).asDouble());

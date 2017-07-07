@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Datasource {
 
@@ -11,13 +8,100 @@ public class Datasource {
 
     private static final String TIMESTAMP = "timestamp";
     private static final String CURRENCY_PAIR = "currency_pair";
+    private static final String LAST_PRICE = "last_price";
+    private static final String LOWEST_ASK = "lowest_ask";
+    private static final String HIGHEST_BID = "highest_bid";
+    private static final String PERCENT_CHANGE = "percent_change";
+    private static final String BASE_VOLUME = "base_volume";
+    private static final String QUOTE_VOLUME = "quote_volume";
+    private static final String DAY_HIGH = "day_high";
+    private static final String DAY_LOW = "day_low";
+    private static final String FROZEN = "frozen";
+
 
     private static final String CONNECTION_STRING = "jdbc:postgresql://localhost:5432/quotes-local";
 
     public static final String INSERT_QUOTES = "INSERT INTO " + TABLE_QUOTESTORAGE +
-            '(' + TIMESTAMP + ", " + CURRENCY_PAIR + ") VALUES(?, ?)";
+            '(' + TIMESTAMP + ", " + CURRENCY_PAIR + ", " + LAST_PRICE + ", " + LOWEST_ASK + ", " + HIGHEST_BID + ", " +
+            PERCENT_CHANGE + ", " + BASE_VOLUME + ", " + QUOTE_VOLUME + ", " + DAY_HIGH + ", " + DAY_LOW + ", " + FROZEN +
+            ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    public void dbConnector() {
+    private Connection conn;
+    private PreparedStatement insertIntoQuoteStorage;
+
+    private static Datasource instance = new Datasource();
+
+    private Datasource() {
+    }
+
+    public static Datasource getInstance() {
+        return instance;
+    }
+
+    public boolean open() {
+        try {
+            conn = DriverManager.getConnection(CONNECTION_STRING);
+            insertIntoQuoteStorage = conn.prepareStatement(INSERT_QUOTES);
+
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Couldn't connect to database: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public void close() {
+        try {
+            if(insertIntoQuoteStorage != null) {
+                insertIntoQuoteStorage.close();
+            }
+
+            if(insertIntoAlbums != null) {
+                insertIntoAlbums.close();
+            }
+
+            if(insertIntoSongs !=  null) {
+                insertIntoSongs.close();
+            }
+
+            if(queryArtist != null) {
+                queryArtist.close();
+            }
+
+            if(queryAlbum != null) {
+                queryAlbum.close();
+            }
+
+            if(queryAlbumsByArtistId != null) {
+                queryAlbumsByArtistId.close();
+            }
+
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Couldn't close connection: " + e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*public void dbConnector() {
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -72,5 +156,5 @@ public class Datasource {
             }//end finally try
         }//end try
         System.out.println("Goodbye!");
-    }
+    }*/
 }
