@@ -1,6 +1,3 @@
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.ObjectWriter;
-import org.codehaus.jackson.util.DefaultPrettyPrinter;
 import rx.Subscription;
 import rx.functions.Action0;
 import rx.functions.Action1;
@@ -10,7 +7,6 @@ import ws.wamp.jawampa.WampClientBuilder;
 import ws.wamp.jawampa.connection.IWampConnectorProvider;
 import ws.wamp.jawampa.transport.netty.NettyWampClientConnectorProvider;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -25,6 +21,8 @@ public class Connector {
     public void start() {
         IWampConnectorProvider connectorProvider = new NettyWampClientConnectorProvider();
         WampClientBuilder builder = new WampClientBuilder();
+        Datasource datasource = new Datasource();
+        datasource.openConnection();
 
         // Build client
         final WampClient client;
@@ -53,15 +51,16 @@ public class Connector {
                                 @Override
                                 public void call(PubSubData s) {
                                     PoloniexMapping poloniexMapping = new PoloniexMapping(GMTTime.getDateGMT(), s.arguments());
-                                    ObjectMapper mapper = new ObjectMapper();
-                                    ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+/*                                    ObjectMapper mapper = new ObjectMapper();
                                     try {
-                                        writer.writeValue(new FileWriter("/home/alexml/Downloads/sout.json", true), poloniexMapping);
+                                        String json = mapper.writeValueAsString(poloniexMapping);
+                                        System.out.println(json);
                                     } catch (IOException e) {
                                         e.printStackTrace();
-                                    }
-                                    //System.out.println(s.arguments());
+                                    }*/
+                                    datasource.insertQuotes(poloniexMapping);
                                 }
+
                             });
                 }
             }
@@ -86,6 +85,7 @@ public class Connector {
         waitUntilKeypressed();
         System.out.println("Stopping publication");
         eventPublication.unsubscribe();
+        datasource.closeConnection();
     }
 
     private void waitUntilKeypressed() {

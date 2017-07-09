@@ -1,12 +1,12 @@
 public class Poloniex {
     public static void main(String[] args) {
-//        Thread thread = new Thread("Thread Connector") {
-//            public void run() {
-//                new Connector().start();
-//            }
-//        };
-//        thread.start();
-//        System.out.println(thread.getName());
+        Thread thread = new Thread("Start Poloniex subscription") {
+            public void run() {
+                new Connector().start();
+            }
+        };
+        thread.start();
+        System.out.println(thread.getName());
 
 //        Thread ptest = new Thread("New Thread") {
 //            public void run() {
@@ -16,6 +16,6 @@ public class Poloniex {
 //
 //        ptest.start();
 //        System.out.println(thread.getName());
-        new Datasource().dbConnector();
+        //new Datasource().dbConnector();
     }
 }
