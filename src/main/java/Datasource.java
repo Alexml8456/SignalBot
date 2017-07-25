@@ -1,8 +1,6 @@
-import java.sql.*;
-
 public class Datasource {
 
-    private Connection conn;
+  /*  private Connection conn;
 
     private static final String DB_DRIVER = "org.postgresql.Driver";
     private static final String DB_NAME = "sbot";
@@ -23,7 +21,7 @@ public class Datasource {
         try {
             preparedStatementInsert = conn.prepareStatement(INSERT_QUOTES);
             preparedStatementInsert.setLong(1, pm.getTimeStamp());
-            preparedStatementInsert.setString(2, pm.getCurrencyPair());
+            preparedStatementInsert.setString(2, pm.getCurrencyId());
             preparedStatementInsert.setBigDecimal(3, pm.getLast());
             preparedStatementInsert.setBigDecimal(4, pm.getLowestAsk());
             preparedStatementInsert.setBigDecimal(5, pm.getHighestBid());
@@ -94,7 +92,7 @@ public class Datasource {
         }
     }
 
-   /* public void dbConnector() {
+   *//* public void dbConnector() {
         Connection conn = null;
         Statement stmt = null;
         try {

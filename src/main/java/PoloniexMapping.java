@@ -1,10 +1,8 @@
-import com.fasterxml.jackson.databind.node.ArrayNode;
-
 import java.math.BigDecimal;
 
 class PoloniexMapping {
-    private long timeStamp;
-    private String currencyPair;
+    private String timeStamp;
+    private int currencyId;
     private BigDecimal last;
     private BigDecimal lowestAsk;
     private BigDecimal highestBid;
@@ -15,26 +13,26 @@ class PoloniexMapping {
     private BigDecimal dayHigh;
     private BigDecimal dayLow;
 
-    PoloniexMapping(Long timeStamp, ArrayNode test) {
+    PoloniexMapping(String timeStamp, String[] test) {
         this.timeStamp = timeStamp;
-        this.currencyPair = test.get(0).asText();
-        this.last = BigDecimal.valueOf(test.get(1).asDouble());
-        this.lowestAsk = BigDecimal.valueOf(test.get(2).asDouble());
-        this.highestBid = BigDecimal.valueOf(test.get(3).asDouble());
-        this.percentChange = BigDecimal.valueOf(test.get(4).asDouble());
-        this.baseVolume = BigDecimal.valueOf(test.get(5).asDouble());
-        this.quoteVolume = BigDecimal.valueOf(test.get(6).asDouble());
-        this.isFrozen = test.get(7).isBoolean();
-        this.dayHigh = BigDecimal.valueOf(test.get(8).asDouble());
-        this.dayLow = BigDecimal.valueOf(test.get(9).asDouble());
+        this.currencyId = Integer.parseInt(test[0]);
+        this.last = BigDecimal.valueOf(Double.parseDouble(test[1]));
+        this.lowestAsk = BigDecimal.valueOf(Double.parseDouble(test[2]));
+        this.highestBid = BigDecimal.valueOf(Double.parseDouble(test[3]));
+        this.percentChange = BigDecimal.valueOf(Double.parseDouble(test[4]));
+        this.baseVolume = BigDecimal.valueOf(Double.parseDouble(test[5]));
+        this.quoteVolume = BigDecimal.valueOf(Double.parseDouble(test[6]));
+        this.isFrozen = Boolean.parseBoolean(test[7]);
+        this.dayHigh = BigDecimal.valueOf(Double.parseDouble(test[8]));
+        this.dayLow = BigDecimal.valueOf(Double.parseDouble(test[9]));
     }
 
-    public long getTimeStamp() {
+    public String getTimeStamp() {
         return timeStamp;
     }
 
-    public String getCurrencyPair() {
-        return currencyPair;
+    public int getCurrencyId() {
+        return currencyId;
     }
 
     public BigDecimal getLast() {

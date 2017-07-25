@@ -1,18 +1,5 @@
-import rx.Subscription;
-import rx.functions.Action0;
-import rx.functions.Action1;
-import ws.wamp.jawampa.PubSubData;
-import ws.wamp.jawampa.WampClient;
-import ws.wamp.jawampa.WampClientBuilder;
-import ws.wamp.jawampa.connection.IWampConnectorProvider;
-import ws.wamp.jawampa.transport.netty.NettyWampClientConnectorProvider;
-
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
 public class Connector {
-
-    Subscription eventPublication;
+/*    Subscription eventPublication;
     Subscription eventSubscription;
 
     static final int eventInterval = 2000;
@@ -50,15 +37,15 @@ public class Connector {
                             .subscribe(new Action1<PubSubData>() {
                                 @Override
                                 public void call(PubSubData s) {
-                                    PoloniexMapping poloniexMapping = new PoloniexMapping(GMTTime.getDateGMT(), s.arguments());
-/*                                    ObjectMapper mapper = new ObjectMapper();
+                                    //PoloniexMapping poloniexMapping = new PoloniexMapping(GMTTime.getDateGMT(), s.arguments());
+                                    ObjectMapper mapper = new ObjectMapper();
                                     try {
                                         String json = mapper.writeValueAsString(poloniexMapping);
                                         System.out.println(json);
                                     } catch (IOException e) {
                                         e.printStackTrace();
-                                    }*/
-                                    datasource.insertQuotes(poloniexMapping);
+                                    }
+                                    //datasource.insertQuotes(poloniexMapping);
                                 }
 
                             });
@@ -97,6 +84,5 @@ public class Connector {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
+    }*/
 }
