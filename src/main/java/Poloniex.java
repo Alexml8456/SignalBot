@@ -19,15 +19,16 @@ public class Poloniex {
                         if(i==0){
                             String[] nSplit1 = split[i].split(",");
                             builder.append(nSplit1[0]);
+                            i =1;
                         }
-                        String aSplit = split[i];
+                        String aSplit = split[i].replace("\"", "");
                         String[] nSplit = aSplit.split(",");
-                        for (int i1 = 0; i1 < nSplit.length; i1++) {
-                            String aNSplit = nSplit[i1];
-                            System.out.println(aNSplit);
-                        }
+                        builder.append(",").append(nSplit[1]);
+                        builder.append(",").append(nSplit[3]);
+                        builder.append(",").append(nSplit[5]);
+                        System.out.println(builder.toString());
+                        builder.delete(3,builder.length());
                     }
-                    System.out.println("New string " + builder.toString());
                 }
             }
 
