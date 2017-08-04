@@ -11,8 +11,8 @@ public class WsConnector {
         WebSocketFactory factory = new WebSocketFactory();
         factory.setConnectionTimeout(10000);
         ProxySettings settings = factory.getProxySettings();
-        settings.setServer("ssl://163.53.249.42");
-        settings.setPort(80);
+        settings.setServer("ssl://1.4.152.149");
+        settings.setPort(8080);
         WebSocket ws = factory.createSocket("wss://api2.poloniex.com:443");
         FileWriter fw = new FileWriter("/home/alexml/Downloads/test.txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
@@ -29,13 +29,14 @@ public class WsConnector {
                 //System.out.println(dataConverter.getCurrencyId());
                 System.out.println(message);
                 out.println(message);
-
             }
         })
                 .connect()
-                //.sendText("{\"command\" : \"subscribe\", \"channel\" : 1001}")
+                        //.sendText("{\"command\" : \"subscribe\", \"channel\" : 1001}")
                 //.sendText("{\"command\" : \"subscribe\", \"channel\" : 1002}");
                 //.sendText("{\"command\" : \"subscribe\", \"channel\" : 1003}");
-                .sendText("{\"command\" : \"subscribe\", \"channel\" : \"BTC_ETH\"}");
+                //.sendText("{\"command\" : \"subscribe\", \"channel\" : \"BTC_ETH\"}")
+                .sendText("{\"command\" : \"subscribe\", \"channel\" : \"BTC_LTC\"}")
+                .sendText("{\"command\" : \"subscribe\", \"channel\" : \"USDT_BTC\"}");
     }
 }
